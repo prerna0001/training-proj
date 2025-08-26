@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-employee
+    environment:
+      MYSQL_ROOT_PASSWORD: admin789
+      MYSQL_DATABASE: employees
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    command: ["redis-server", "--appendonly", "yes"]  # enable persistence
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis_data:/data
+
+  backend:
+    image: its7prerna/backend:latest
+    container_name: backend-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://backend:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    image: its7prerna/angular-frontend:latest
+    container_name: angular-frontend
+    ports:
+      - "90:90"
+    depends_on:
+      backend:
+        condition: service_healthy
+volumes:
+  mysql_data:
+  redis_data:

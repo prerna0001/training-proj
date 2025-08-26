@@ -1,0 +1,32 @@
+.form-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #3f51b5;
+}
+
+::ng-deep .error-snackbar {
+  background-color: #d32f2f; /* red */
+  color: white;
+  font-weight: bold;
+}
+
+::ng-deep .success-snackbar {
+  background-color: #2e7d32; /* green */
+  color: white;
+  font-weight: bold;
+}
+

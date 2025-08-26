@@ -1,0 +1,22 @@
+<div class="form-container">
+  <h2>Add New Employee</h2>
+
+  <form (ngSubmit)="addEmployee()" #employeeForm="ngForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="employee.name" name="name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Position</mat-label>
+      <input matInput type="text" [(ngModel)]="employee.position" name="position" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Department</mat-label>
+      <input matInput type="text" [(ngModel)]="employee.department" name="department" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Add Employee</button>
+  </form>
+</div>
