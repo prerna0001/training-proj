@@ -42,7 +42,7 @@ export class EmployeeForm {
       return;
     }
 
-    this.http.post('http://backend:8080/api/employees', this.employee)
+    this.http.post('/api/employees', this.employee)
       .subscribe({
         next: (res) => {
           console.log('Employee added:', res);

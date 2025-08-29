@@ -1,5 +1,5 @@
 # Stage 1: Build Angular app
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN npm run build --prod
 FROM nginx:1.25-alpine
 
 # Copy build output
-COPY --from=build /app/dist/my-frontend /usr/share/nginx/html
+COPY --from=build /app/dist/my-frontend/browser /usr/share/nginx/html
 
 # Copy nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf

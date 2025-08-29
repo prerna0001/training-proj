@@ -4,6 +4,9 @@ FROM openjdk:21-jdk-slim
 # Set working directory inside container
 WORKDIR /app
 
+# Install curl for health check
+RUN apt-get update && apt-get install -y curl
+
 # Copy jar into container
 COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
 

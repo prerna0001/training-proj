@@ -27,7 +27,7 @@ export class EmployeeList {
   constructor(private http: HttpClient) {}
 
   loadEmployees() {
-    this.http.get<Employee[]>('http://backend:8080/api/employees')
+    this.http.get<Employee[]>('/api/employees')
       .subscribe({
         next: (data) => {
           this.employees = data;
