@@ -77,6 +77,22 @@ services:
     networks:
       - frontend_net
 
+  docker-bench:
+    image: docker/docker-bench-security
+    container_name: docker-bench
+    network_mode: host
+    pid: host
+    userns_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /usr/lib/systemd:/usr/lib/systemd:ro
+      - /etc:/etc:ro
+      - /lib/systemd:/lib/systemd:ro
+      - /usr/bin/containerd:/usr/bin/containerd:ro
+      # Mount a local folder to store reports
+      - ./bench-reports:/reports
+    command: ["sh", "-c", "./docker-bench-security.sh > /reports/docker-bench-report.txt 2>&1"] #1 stdout, 2 stderr; > redirect
+
 volumes:
   mysql_data:
   redis_data:
